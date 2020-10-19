@@ -1,11 +1,16 @@
 const {app, BowserWindow, BrowserWindow} = require('electron');
 
+let mainWindow;
+
 function createMainWindow(){
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         title: 'ImageShrink',
         height: 500,
-        width: 600
+        width: 600,
+        icon: `${__dirname}/assets/icons/Icon_256x256.png`
     })
+    mainWindow.loadURL(`file://${__dirname}/app/index.html`)
+
 }
 
 app.on('ready', createMainWindow)
