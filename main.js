@@ -6,20 +6,37 @@ const isDev = process.env.NODE_ENV == 'development' ? true : false;
 const isMac = process.platform === 'darwin' ? true : false;
 
 let mainWindow;
+let aboutWindow;
+function createMainWindow(){
+    mainWindow = new BrowserWindow({
+        title: 'ImageShrink',
+        height: 500,
+        width: 6000,
+        icon: `${__dirname}/assets/icons/Icon_256x256.png`,
+        resizable: isDev
+    })
+    mainWindow.loadURL(`file://${__dirname}/app/index.html`)
+}
+
+function createAboutWindow(){
+    aboutWindow = new BrowserWindow({
+        title: 'About ImageShrink',
+        height: 300,
+        width: 300,
+        icon: `${__dirname}/assets/icons/Icon_256x256.png`,
+        resizable: false
+    })
+    aboutWindow.loadURL(`file://${__dirname}/app/about.html`)
+}
 
 const menu = [
-    ...(isMac?[{role: 'appMenu'}]: []),
-    // {
-    //     label: 'File',
-    //     submenu: [
-    //         {
-    //             label: 'Quit',
-    //             // accelerator: isMac ? 'Command+W' : 'Crtl+W',
-    //             accelerator: 'CmdOrCtrl+W',
-    //             click: () => app.quit()
-    //         }
-    //     ]
-    // },
+    {
+        label: app.name,
+        submenu: [{
+            label: 'About',
+            click: createAboutWindow
+        }]
+    },
     {
         role: 'fileMenu' // replacement for above lines
     },
@@ -34,17 +51,6 @@ const menu = [
     }] : [])
 ];
 
-function createMainWindow(){
-    mainWindow = new BrowserWindow({
-        title: 'ImageShrink',
-        height: 500,
-        width: 6000,
-        icon: `${__dirname}/assets/icons/Icon_256x256.png`,
-        resizable: isDev
-    })
-    mainWindow.loadURL(`file://${__dirname}/app/index.html`)
-
-}
 app.allowRendererProcessReuse = true;
 
 app.on('ready', ()=> {
