@@ -7,8 +7,5 @@
     "start": "electron ."
   },
   "author": "Rohit J",
-  "license": "ISC",
-  "devDependencies": {
-    "electron": "^8.5.2"
-  }
+  "license": "ISC"
 }
