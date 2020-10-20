@@ -9,17 +9,29 @@ let mainWindow;
 
 const menu = [
     ...(isMac?[{role: 'appMenu'}]: []),
+    // {
+    //     label: 'File',
+    //     submenu: [
+    //         {
+    //             label: 'Quit',
+    //             // accelerator: isMac ? 'Command+W' : 'Crtl+W',
+    //             accelerator: 'CmdOrCtrl+W',
+    //             click: () => app.quit()
+    //         }
+    //     ]
+    // },
     {
-        label: 'File',
-        submenu: [
-            {
-                label: 'Quit',
-                // accelerator: isMac ? 'Command+W' : 'Crtl+W',
-                accelerator: 'CmdOrCtrl+W',
-                click: () => app.quit()
-            }
+        role: 'fileMenu' // replacement for above lines
+    },
+    ...(isDev? [{
+        label: 'DevTools',
+        submenu:[
+        {role: 'reload'},
+        {role: 'forcereload'},
+        {type: 'separator'},
+        {role: 'toggledevtools'}
         ]
-    }
+    }] : [])
 ];
 
 function createMainWindow(){
