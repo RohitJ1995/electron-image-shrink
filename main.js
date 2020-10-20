@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Menu} = require('electron');
+const {app, BrowserWindow, Menu, globalShortcut} = require('electron');
 
 process.env.NODE_ENV = 'development';
 
@@ -14,6 +14,8 @@ const menu = [
         submenu: [
             {
                 label: 'Quit',
+                // accelerator: isMac ? 'Command+W' : 'Crtl+W',
+                accelerator: 'CmdOrCtrl+W',
                 click: () => app.quit()
             }
         ]
@@ -38,6 +40,9 @@ app.on('ready', ()=> {
 
     const mainMenu = Menu.buildFromTemplate(menu);
     Menu.setApplicationMenu(mainMenu);
+
+    globalShortcut.register('CmdOrCtrl+R', () => {mainWindow.reload()})
+    globalShortcut.register(isMac? 'Command+Alt+I':'Ctrl+Shift+I', ()=> {mainWindow.toggleDevTools()})
 
     // clear memmory on close
     mainWindow.on('close', () => { mainWindow = null })
