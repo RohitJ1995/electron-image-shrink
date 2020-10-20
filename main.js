@@ -11,7 +11,7 @@ function createMainWindow(){
     mainWindow = new BrowserWindow({
         title: 'ImageShrink',
         height: 500,
-        width: 600,
+        width: 6000,
         icon: `${__dirname}/assets/icons/Icon_256x256.png`,
         resizable: isDev
     })
