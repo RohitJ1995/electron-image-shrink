@@ -1,7 +1,7 @@
 const {app, BrowserWindow, Menu, globalShortcut} = require('electron');
 
 process.env.NODE_ENV = 'development';
-
+// test
 const isDev = process.env.NODE_ENV == 'development' ? true : false;
 const isMac = process.platform === 'darwin' ? true : false;
 
@@ -10,11 +10,17 @@ let aboutWindow;
 function createMainWindow(){
     mainWindow = new BrowserWindow({
         title: 'ImageShrink',
-        height: 500,
-        width: 6000,
+        height: 600,
+        width: isDev? 1000:600,
         icon: `${__dirname}/assets/icons/Icon_256x256.png`,
-        resizable: isDev
+        resizable: isDev,
+        webPreferences: { // to integrate node with rendered
+            nodeIntegration: true
+        }
     })
+    if(isDev){
+        mainWindow.webContents.openDevTools()
+    }
     mainWindow.loadURL(`file://${__dirname}/app/index.html`)
 }
 
